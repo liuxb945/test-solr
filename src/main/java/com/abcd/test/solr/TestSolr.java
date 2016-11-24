@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.lucene.search.Query;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrQuery.ORDER;
 import org.apache.solr.client.solrj.SolrQuery.SortClause;
@@ -16,6 +17,7 @@ import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.params.FacetParams;
 import org.junit.Test;
+import org.wltea.analyzer.lucene.IKQueryParser;
 
 
 public class TestSolr {
@@ -184,9 +186,17 @@ public class TestSolr {
         core.setMaxTotalConnections(100);
         core.setFollowRedirects(false); // defaults to false
         core.setAllowCompression(true);
-        
-        SolrQuery query = new SolrQuery();
-        query.setQuery("*:*");
+        String searchContent="大芬村";
+//        SolrQuery query = new SolrQuery();
+//        query.setQuery("龙城公寓 大学宿舍");
+        Query q = IKQueryParser.parse("subject", searchContent);
+//		Query q = IKQueryExpressionParser.
+		String finalquery = q.toString();// 最终查询语句
+		System.out.println("finalquery = " + finalquery);
+		SolrQuery query = new SolrQuery();
+		query.setQuery(finalquery);
+        query.setParam("q.op", "OR");
+        query.setParam("df", "subject");
         query.setStart(0); // query的开始行数(分页使用)
         query.setRows(100); // query的返回行数(分页使用)
         query.setFacet(true); // 设置使用facet
