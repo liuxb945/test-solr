@@ -1,5 +1,8 @@
 package com.abcd.test.solr;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.solr.client.solrj.beans.Field;
 
 public class Item {
@@ -15,6 +18,8 @@ public class Item {
     private int categoryId;
     @Field
     private float price;
+    @Field
+    private String propertyValues;
     
     public long getId() {
         return id;
@@ -52,4 +57,10 @@ public class Item {
     public void setPrice(float price) {
         this.price = price;
     }
+	public String getPropertyValues() {
+		return propertyValues;
+	}
+	public void setPropertyValues(String propertyValues) {
+		this.propertyValues = propertyValues;
+	}
 }

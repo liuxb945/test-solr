@@ -18,7 +18,7 @@ public class SolrjSearch {
 	public static void main(String[] args) throws Exception {
 
 		// searchContent的内容,我们可以假想是从页面文件搜索文本框中输入的字符内容
-		String searchContent = "good";
+		String searchContent = "good day";
 
 		// 远程服务端地址,得到solr服务
 		String SOLR_URL = "http://localhost:8080/solr/mysolr";
